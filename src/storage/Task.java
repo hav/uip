@@ -4,10 +4,15 @@ import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
+/**
+ * Task Model, Task management including set and get
+ * @author Da Zhang
+ *
+ */
 public class Task {
 
 	private static final String DEFAULT_UNNAMED_TASK_NAME = "DEFAULT";
-	protected DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+	protected DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss");
 	
 	protected Integer taskId;
 	protected String taskName;
