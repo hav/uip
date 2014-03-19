@@ -29,8 +29,8 @@ import org.joda.time.format.DateTimeFormatter;
 public class MainController {
 
 	private static MainController instance = null;
-	private int height = 0;
-	private int width = 0;
+	private int height = 500;
+	private int width = 800;
 	private int inlineLeft = 0;
 	private int inlineTop = 0;
 	private String language = "en";
@@ -43,7 +43,12 @@ public class MainController {
 
 	private TaskList taskList = TaskList.getInstance();
 
-
+	
+	/**
+	 * Make controller could be got globally
+	 * @return
+	 * @author Da Zhang
+	 */
 	public static synchronized MainController getInstance() {
 		if (instance == null) {
 			try {
@@ -174,6 +179,7 @@ public class MainController {
 			reader.close();
 		} catch (FileNotFoundException ex) {
 			// file does not exist
+			System.out.println("First Time Start");
 		} catch (IOException ex) {
 			// I/O error
 		}
@@ -205,13 +211,20 @@ public class MainController {
 				e.printStackTrace();
 			}
 		}
+	/**
+	 * When "save" button in addtaskview has been clicked. A new task is created and saved to XML file.	
+	 * @param adv
+	 * @author Da Zhang
+	 */
+		
 		
 		public void saveTaskClicked(AddTaskView adv) {
+			/*
 			String temp = adv.jtaskname.getText() + "\n" + adv.jtaskcat.getText() + "\n" + adv.jtaskpri.getSelectedItem().toString() + "\n" + 
 					((JTextField)adv.dcstart.getDateEditor().getUiComponent()).getText() + "\n" + ((JTextField)adv.dcend.getDateEditor().getUiComponent()).getText() + 
 					"\n" + adv.jhour.getText() + " : " + adv.jmin.getText() + "\n" + adv.jendhour.getText() + " : " + adv.jendmin.getText();
 			System.out.println(temp);
-			
+			*/
 			String taskName = adv.jtaskname.getText();
 			String taskCategory = adv.jtaskcat.getText();
 			DateTime createdDt = DateTime.now();
@@ -232,6 +245,12 @@ public class MainController {
 			this.ReloadGui();
 		}
 		
+		/**
+		 * Set and update look and feel
+		 * @param landf
+		 * @param theme
+		 * @author Da Zhang
+		 */
 		
 		public void initLookAndFeel(String landf, String theme) {
 			String lookAndFeel;

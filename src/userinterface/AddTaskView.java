@@ -9,7 +9,13 @@ import controller.MainController;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
+/**
+ * Add new task window
+ * @author Da Zhang
+ *
+ */
 public class AddTaskView implements ActionListener {
 	
 	public AddTaskView adv = this;
@@ -98,6 +104,7 @@ public class AddTaskView implements ActionListener {
 		p1.setLayout(new FlowLayout());
 		JLabel lstartdate = new JLabel("Start Date");
 		dcstart = new JDateChooser();
+		dcstart.setDate(new Date());
 		p1.add(lstartdate);
 		p1.add(dcstart);
 
@@ -105,8 +112,10 @@ public class AddTaskView implements ActionListener {
 		p2.setLayout(new FlowLayout());
 		JLabel lstarttime = new JLabel("Start time");
 		jhour = new JTextField(2);
+		jhour.setText("00");
 		JLabel maohao = new JLabel(":");
 		jmin = new JTextField(2);
+		jmin.setText("00");
 		p2.add(lstarttime);
 		p2.add(jhour);
 		p2.add(maohao);
@@ -122,6 +131,7 @@ public class AddTaskView implements ActionListener {
 		ep1.setLayout(new FlowLayout());
 		JLabel lenddate = new JLabel("End Date");
 		dcend = new JDateChooser();
+		dcend.setDate(new Date());
 		ep1.add(lenddate);
 		ep1.add(dcend);
 
@@ -129,8 +139,10 @@ public class AddTaskView implements ActionListener {
 		ep2.setLayout(new FlowLayout());
 		JLabel lendtime = new JLabel("End time");
 		jendhour = new JTextField(2);
+		jendhour.setText("00");
 		JLabel maohaoend = new JLabel(":");
 		jendmin = new JTextField(2);
+		jendmin.setText("00");
 		ep2.add(lendtime);
 		ep2.add(jendhour);
 		ep2.add(maohaoend);
@@ -171,17 +183,6 @@ public class AddTaskView implements ActionListener {
 		// keep the window visible
 		popUp.setVisible(true);
 
-	}
-
-	public static void main(String[] args) {
-
-		SwingUtilities.invokeLater(new Runnable() {
-
-			public void run() {
-				AddTaskView a = new AddTaskView();
-
-			}
-		});
 	}
 
 	@Override

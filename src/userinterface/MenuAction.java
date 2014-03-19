@@ -11,7 +11,7 @@ import controller.MainController;
  * MenuAction is an abstractAction class that handles all the actions for the
  * menu.
  * 
- * @author Jesper Andersson
+ * @author Jesper Andersson & Da Zhang
  * 
  */
 class MenuAction extends AbstractAction {

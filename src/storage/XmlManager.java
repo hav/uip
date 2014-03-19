@@ -1,6 +1,7 @@
 package storage;
 
 import org.dom4j.*;
+
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
@@ -14,11 +15,17 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Manange XML file as datebase. Connect DB with datamodel
+ * @author Da Zhang
+ *
+ */
+
 public class XmlManager {
 
 	private static final String XML_FILE_PATH = System.getProperty("user.home")+System.getProperty("file.separator")+"tmdb.xml";
 	//private static final String XML_FILE_PATH = "db/tmdb.xml";
-	private DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+	private DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss");
 	
 	protected Document doc;
 	protected Element root;
