@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.util.Date;
+import java.text.DateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -57,12 +58,13 @@ public class DetailTaskView implements ActionListener {
     private String taskName;
     private String taskCategory;
     private String taskPriority;
+    private JFrame popUp;
 
     public DetailTaskView(Task inputTask) {
 
         activeTask = inputTask;
         // creation of a new frame
-        JFrame popUp = new JFrame();
+        popUp = new JFrame();
         popUp.pack();
         popUp.setResizable(false);
         popUp.setSize(600, 400); // setting the size of the frame
@@ -100,7 +102,7 @@ public class DetailTaskView implements ActionListener {
         pane.add(startTime); // adding the label
         ;
         DateTimeFormatter fmt = DateTimeFormat
-                .forPattern("MMM d, yyyy HH:mm:ss");
+                .forPattern("yyyy/MM/dd HH:mm:ss");
 
         startTimeButton = new JButton(activeTask.getStartTime().toString(fmt));
         pane.add(startTimeButton); // adding the button
@@ -141,9 +143,10 @@ public class DetailTaskView implements ActionListener {
                 startDatePanel.add(startTimeSaveButton); // adding the button
                 startTimeSaveButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        startDateInput = startDatePicker
-                                .getSelectedDateAsText();
-                        System.out.println(startDateInput);
+                    	startDatePicker.setDateFormat(DateFormat.getDateInstance(DateFormat.DEFAULT));
+                        startDateInput = startDatePicker.getSelectedDateAsText();
+                        startDateInput = startDateInput.replaceAll("-", "/");
+                        System.out.println(startDatePicker.getDateFormat());
 
                         try {
                             startTimePicker.commitEdit();
@@ -174,9 +177,10 @@ public class DetailTaskView implements ActionListener {
                         startTimeButton.setText(startDateInput + " "
                                 + startTimeInput);
                         DateTimeFormatter formatter = DateTimeFormat
-                                .forPattern("MMM d, yyyy HH:mm:ss");
+                                .forPattern("yyyy/MM/dd HH:mm:ss");
                         startDt = formatter.parseDateTime(startDateInput + " "
                                 + startTimeInput);
+                        System.out.println(startDt);
 
                         startDatePanel.setVisible(false);
 
@@ -237,7 +241,10 @@ public class DetailTaskView implements ActionListener {
                 endDatePanel.add(endTimeSaveButton); // adding the button
                 endTimeSaveButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        
+                        endDatePicker.setDateFormat(DateFormat.getDateInstance(DateFormat.DEFAULT));
                         endDateInput = endDatePicker.getSelectedDateAsText();
+                        endDateInput = endDateInput.replaceAll("-", "/");
                         System.out.println(endDateInput);
 
                         try {
@@ -270,7 +277,7 @@ public class DetailTaskView implements ActionListener {
                                 .setText(endDateInput + " " + endTimeInput);
 
                         DateTimeFormatter formatter = DateTimeFormat
-                                .forPattern("MMM d, yyyy HH:mm:ss");
+                                .forPattern("yyyy/MM/dd HH:mm:ss");
                         endDt = formatter.parseDateTime(endDateInput + " "
                                 + endTimeInput);
 
@@ -310,7 +317,7 @@ public class DetailTaskView implements ActionListener {
 
                 editTask();
                 // MainController.getInstance().ReloadGui();
-
+                popUp.setVisible(false);
             }
         });
 
@@ -320,6 +327,8 @@ public class DetailTaskView implements ActionListener {
     }
 
     private void editTask() {
+    	DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy/MM/dd HH:mm:ss");
+    	
         taskName = taskNameField.getText();
         activeTask.setTaskName(taskName);
         System.out.println(taskName);
@@ -328,10 +337,10 @@ public class DetailTaskView implements ActionListener {
         System.out.println(taskCategory);
 
         activeTask.setStartTime(startDt);
-        System.out.println(startDt.toString());
+        System.out.println(startDt.toString(formatter));
 
         activeTask.setEndTime(endDt);
-        System.out.println(endDt.toString());
+        System.out.println(endDt.toString(formatter));
 
         activeTask.setPriority(taskPriority);
         System.out.println(taskPriority);

@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,21 +29,26 @@ import org.joda.time.format.DateTimeFormatter;
 public class MainController {
 
 	private static MainController instance = null;
-	private int height = 0;
-	private int width = 0;
+	private int height = 500;
+	private int width = 800;
 	private int inlineLeft = 0;
 	private int inlineTop = 0;
 	private String language = "en";
 	private String country = "US";
 	private static MainLayout mainLayout;
 	
-	private String lAndF = null;
-	private String theme = null;
+	private String lAndF = "Default";
+	private String theme = "Default";
 
 
 	private TaskList taskList = TaskList.getInstance();
 
-
+	
+	/**
+	 * Make controller could be got globally
+	 * @return
+	 * @author Da Zhang
+	 */
 	public static synchronized MainController getInstance() {
 		if (instance == null) {
 			try {
@@ -56,17 +60,11 @@ public class MainController {
 		return instance;
 	}
 	/*
-	 * This is the main for the program.
+	 * This is the MainController for the program.
 	 */
 	public static void main(String[] args) {
+
 		mainLayout = new MainLayout();
-		/*SwingUtilities.invokeLater(new Runnable() {
-
-			public void run() {
-				MainLayout layout = new MainLayout();
-
-			}
-		});*/
 	}
 
 	/**
@@ -83,7 +81,7 @@ public class MainController {
 
 	/**
 	 * Load tasks from db and show in the tasklistview
-	 * @param tasklistview
+	 * @param tlview
 	 */
 	public void loadandshowTaskList(TaskListView tlview) {
 		//Get tasklist
@@ -176,11 +174,12 @@ public class MainController {
 			this.inlineTop = Integer.parseInt(props.getProperty("inlineTop"));
 			this.language = props.getProperty("language");
 			this.country = props.getProperty("country");
-			this.lAndF = props.getProperty("lookandfeel");
+			this.lAndF = props.getProperty("laf");
 			this.theme = props.getProperty("theme");
 			reader.close();
 		} catch (FileNotFoundException ex) {
 			// file does not exist
+			System.out.println("First Time Start");
 		} catch (IOException ex) {
 			// I/O error
 		}
@@ -200,7 +199,7 @@ public class MainController {
 				props.setProperty("inlineTop", Integer.toString(this.inlineTop));
 				props.setProperty("inlineLeft", Integer.toString(this.inlineLeft));
 				props.setProperty("language", language);
-				props.setProperty("lookandfeel", lAndF);
+				props.setProperty("laf", lAndF);
 				props.setProperty("theme", theme);
 				props.setProperty("country", country);
 				props.store(out, "");
@@ -212,13 +211,20 @@ public class MainController {
 				e.printStackTrace();
 			}
 		}
+	/**
+	 * When "save" button in addtaskview has been clicked. A new task is created and saved to XML file.	
+	 * @param adv
+	 * @author Da Zhang
+	 */
+		
 		
 		public void saveTaskClicked(AddTaskView adv) {
+			/*
 			String temp = adv.jtaskname.getText() + "\n" + adv.jtaskcat.getText() + "\n" + adv.jtaskpri.getSelectedItem().toString() + "\n" + 
 					((JTextField)adv.dcstart.getDateEditor().getUiComponent()).getText() + "\n" + ((JTextField)adv.dcend.getDateEditor().getUiComponent()).getText() + 
 					"\n" + adv.jhour.getText() + " : " + adv.jmin.getText() + "\n" + adv.jendhour.getText() + " : " + adv.jendmin.getText();
 			System.out.println(temp);
-			
+			*/
 			String taskName = adv.jtaskname.getText();
 			String taskCategory = adv.jtaskcat.getText();
 			DateTime createdDt = DateTime.now();
@@ -239,12 +245,18 @@ public class MainController {
 			this.ReloadGui();
 		}
 		
+		/**
+		 * Set and update look and feel
+		 * @param landf
+		 * @param theme
+		 * @author Da Zhang
+		 */
 		
 		public void initLookAndFeel(String landf, String theme) {
-			String lookAndFeel = null;
+			String lookAndFeel;
 			
 			if (theme == null) {
-				theme = "Default";
+				this.theme = "Default";
 			}
 			
 			this.lAndF = landf;
@@ -303,7 +315,6 @@ public class MainController {
 					e.printStackTrace();
 				}
 			}
-			
-			
+
 		}
 }

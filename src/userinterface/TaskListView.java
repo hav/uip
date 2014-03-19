@@ -3,11 +3,9 @@ package userinterface;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.ResourceBundle;
 
 import javax.swing.*;
-import javax.swing.event.ListDataListener;
 
 import org.joda.time.DateTime;
 
@@ -50,7 +48,7 @@ public class TaskListView extends JPanel implements ActionListener {
          */
 
         //final ArrayList<Task> tasks = this.createTasks();//this.getTasks();
-        final TaskList tasks = this.createTasks();
+        final TaskList tasks = TaskList.getInstance();
         ListModel<String> tasksList = new AbstractListModel<String>() {
             @Override
             public int getSize() {
@@ -184,10 +182,11 @@ public class TaskListView extends JPanel implements ActionListener {
                     DateTime.now(), // updated at
                     false, // isdone
                     false, // isdeleted
-                    3, // priority
+                    Integer.toString(3), // priority
                     "Test Type", // tasktype
                     DateTime.now(), // startdate
-                    DateTime.now()
+                    DateTime.now(), //enddate
+                    0 // progress
             );
         }
 
@@ -217,6 +216,6 @@ public class TaskListView extends JPanel implements ActionListener {
         TaskList t1 = new TaskList();
         //AddTaskView task = new AddTaskView();
         //String tn = AddTaskView.text1.getText();
-        t1.addTask("tname", "category", new DateTime(), new DateTime(), false, false, 0, "type",new DateTime(),new DateTime());
+        t1.addTask("tname", "category", new DateTime(), new DateTime(), false, false, Integer.toString(0), "type",new DateTime(),new DateTime(),0);
     }
 }

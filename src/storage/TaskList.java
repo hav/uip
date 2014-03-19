@@ -5,6 +5,11 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+/**
+ * All task could be managed by this tasklist model incliuding adding new task and read tasks
+ * @author Da Zhang
+ *
+ */
 public class TaskList {
 
 	private List<Task> taskList = new ArrayList<Task>();

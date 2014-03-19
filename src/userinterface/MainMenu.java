@@ -9,7 +9,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
 /**
- * This class is the main menu that contains the items that you can see in the
+ * This class is the MainController menu that contains the items that you can see in the
  * menu.
  * 
  * @author Jesper Andersson
